@@ -8,6 +8,7 @@ import UserDefine from './Component/UserDefine';
 import NimaReport from './Component/NimaReports';
 import Detailpost from './Component/DetailPost'
 import NotFound from './Component/NotFound'
+import AddNews from './Component/AddNews';
 
 class App extends Component {
   render() {
@@ -29,7 +30,7 @@ class App extends Component {
                                 <Route path="/Reports"  component={Reports}   />
                                 {/* انتقال کوئری استنرینگ
                                 <Route path="/"  render={(props) => <Post {...props} id={-1}/>} /> */}
-                            
+                               <Route path="/AddNews" component={AddNews}  />
                                 <Route path="/Detailpost" component={Detailpost}  />
                                 <Route path="/" exact  component={Post} />  />
                                 <Redirect to="/NotFound"></Redirect>

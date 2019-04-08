@@ -6,7 +6,7 @@ import Pagination from './pagination';
 import {paginate} from '../Utility/Pagination';
 import {Route, Switch,Link } from "react-router-dom";
 import Detailpost from "./DetailPost";
-
+import { connect } from 'react-redux';
 
 class Post extends Component {
   constructor(props)
@@ -22,9 +22,10 @@ class Post extends Component {
   //برای http نیز از این استفاده میکنیم
   componentDidMount()
   {
-
-    const posts=getPosts()
-    this.setState({post:posts})
+    this.setState({ post: [...this.props.News] })
+    console.log(this.state.post)
+    // const posts=getPosts()
+    // this.setState({post:posts})
   }
   handlePageChange = page => {
     this.setState({ currentPage: page });
@@ -49,8 +50,8 @@ getPageData = () => {
         <div class="card" style={{margin:"20px"}} >
       
         <div class="card-body" >
-          <h5 class="card-title">{post.postTitle}</h5>
-          <p class="card-text">{post.postContent}</p>
+          <h5 class="card-title">{post.Title}</h5>
+          <p class="card-text">{post.Desc}</p>
           <Link  class="btn btn-primary"  to={{
   pathname: '/DetailPost',
   state: {
@@ -72,5 +73,7 @@ getPageData = () => {
     );
   }
 }
-
-export default Post;
+const mapStateToProps = (state) => ({
+  News: state.News
+})
+export default connect(mapStateToProps)(Post);

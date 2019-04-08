@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import {paginate} from '../Utility/Pagination';
+import { paginate } from '../Utility/Pagination';
 import Pagination from './pagination';
 //  const Counters = ({ counters }) => {
 //   if(counters.length===0)
@@ -49,34 +49,35 @@ import Pagination from './pagination';
 //   );
 // }
 class Reports extends Component {
-constructor(props)
-{
- super(props)
- this.state={
-   data:[],
-   currentPage:1,
-   pageSize:5
- }
- this.handlePageChange=this.handlePageChange.bind(this)
-}
-handlePageChange = page => {
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: [],
+      currentPage: 1,
+      pageSize: 5
+    }
 
-  this.setState({ currentPage: page });
-};
+    this.handlePageChange = this.handlePageChange.bind(this)
+  }
+  handlePageChange = page => {
 
-  componentDidMount()
-  {
-    this.setState({data:[...this.props.user]})
+    this.setState({ currentPage: page });
+  };
+
+  componentDidMount() {
+
+    this.setState({ data: [...this.props.user] })
+    console.log(this.state.data)
   }
   getPageData = () => {
     const { pageSize, currentPage, data } = this.state;
     const Users = paginate(data, currentPage, pageSize);
 
     return {
-        totalCount: data.length,
-        data: Users
+      totalCount: data.length,
+      data: Users
     };
-};
+  };
   render() {
     if(this.state.data.length===0)
     {
@@ -104,7 +105,7 @@ handlePageChange = page => {
             </tr>
           </thead>
           <tbody>
-            {data.map(counter =>
+            {this.state.data.map(counter =>
               <tr>
                 <td>{counter.Name}</td>
                 <td>{counter.Family}</td>
@@ -118,17 +119,17 @@ handlePageChange = page => {
           </tbody>
         </table>
         <Pagination
-      itemCount={totalCount}
-      pageSize={pageSize}
-      currentPage={currentPage}
-      onPageChange={this.handlePageChange}
-      ></Pagination>
+          itemCount={totalCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={this.handlePageChange}
+        ></Pagination>
       </div>
     );
   }
 }
-const mapStateToProps = (defaultState) => ({
-  user: defaultState
+const mapStateToProps = (state) => ({
+  user: state.User
 })
 export default connect(mapStateToProps)(Reports);
 

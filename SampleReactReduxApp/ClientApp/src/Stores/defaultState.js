@@ -1,6 +1,8 @@
-const defaultState = [
-   
-]
+const defaultState = {
+    User:[],
+    News:[]
+ }
+
 
 
 export default defaultState;
