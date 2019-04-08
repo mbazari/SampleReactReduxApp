@@ -1,0 +1,78 @@
+@font-face {
+    font-family: 'davat';
+    src: url('../fonts/BDavat.eot');
+    src: url('../fonts/BDavat.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/BDavat.woff2') format('woff2'),
+        url('../fonts/BDavat.woff') format('woff'),
+        url('../fonts/BDavat.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'yekan';
+    src: url('../fonts/BYekan.eot');
+    src: url('../fonts/BYekan.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/BYekan.woff2') format('woff2'),
+        url('../fonts/BYekan.woff') format('woff'),
+        url('../fonts/BYekan.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'yekan', 'Segoe UI',
+        'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+.feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+}
+#datePicker
+{
+    border:none;
+    width: 100%;
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+/*
+   * Content
+*/
+
+[role='main'] {
+    padding: 48px; /* Space for fixed navbar */
+    /* background: url('../images/light-grey-terrazzo.png') repeat center center
+        fixed; */
+}
+
+.copyright {
+    color: white;
+    font-size: 13px;
+}
+
+.socialmedia {
+    color: white;
+}
