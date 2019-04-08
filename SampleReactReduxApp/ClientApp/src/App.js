@@ -11,10 +11,12 @@ import NotFound from './Component/NotFound'
 
 class App extends Component {
   render() {
+    console.log(arguments);
     return (
-      <React.Fragment>
+    
+    <React.Fragment>
         <Navebar></Navebar>
-
+    
         <div className="container-fluid rtl">
         <div className="row">
         <div className="col-lg-2 col-md-2">
