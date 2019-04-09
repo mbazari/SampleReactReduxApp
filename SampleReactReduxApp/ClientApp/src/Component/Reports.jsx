@@ -3,51 +3,8 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { paginate } from '../Utility/Pagination';
 import Pagination from './pagination';
-//  const Counters = ({ counters }) => {
-//   if(counters.length===0)
-//   {
-//     return(
-//       <div style={{ margin: "10px" }}>
-//       <div className="alert alert-danger">داده ای جهت نمایش وجود ندارد!!!</div>
-//       </div>
-//     )
-//   }
-//   return (
+import * as agent from '../Utility/httpagent'
 
-//     <div style={{ margin: "10px" }}>
-//       <table className="table table-bordered table-hover">
-//         <thead className="bg-info">
-//           <tr>
-//             <th>نام</th>
-//             <th>نام خانوادگی</th>
-//             <th>ایمیل</th>
-//             <th>تلفن</th>
-//             <th>موبایل</th>
-//             <th>شروع فعالیت</th>
-//             <th> پایان فعالیت</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {counters.map(counter =>
-//             <tr>
-//               <td>{counter.Name}</td>
-//               <td>{counter.Family}</td>
-//               <td>{counter.Email}</td>
-//               <td>{counter.Tell}</td>
-//               <td>{counter.Mobile}</td>
-//               <td>{counter.DateFrom}</td>
-//               <td>{counter.DateTo}</td>
-//             </tr>
-
-
-
-//           )}
-//         </tbody>
-//       </table>
-
-//     </div>
-//   );
-// }
 class Reports extends Component {
   constructor(props) {
     super(props)
@@ -64,26 +21,26 @@ class Reports extends Component {
     this.setState({ currentPage: page });
   };
 
-  componentDidMount() {
+  componentWillMount() {
 
-    this.setState({ data: [...this.props.user] })
-    console.log(this.state.data)
+  }
+  componentDidMount() {
+    this.props.onLoad(agent.User.get());
   }
   getPageData = () => {
-    const { pageSize, currentPage, data } = this.state;
-    const Users = paginate(data, currentPage, pageSize);
+    const { pageSize, currentPage} = this.state;
+    const Users = paginate( this.props.user, currentPage, pageSize);
 
     return {
-      totalCount: data.length,
+      totalCount: this.props.user.length,
       data: Users
     };
   };
   render() {
-    if(this.state.data.length===0)
-    {
-      return(
+    if (this.props.user.length === 0) {
+      return (
         <div style={{ margin: "10px" }}>
-        <div className="alert alert-danger">داده ای جهت نمایش وجود ندارد!!!</div>
+          <div className="alert alert-danger">داده ای جهت نمایش وجود ندارد!!!</div>
         </div>
       )
     }
@@ -105,7 +62,7 @@ class Reports extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.data.map(counter =>
+            {data.map(counter =>
               <tr>
                 <td>{counter.Name}</td>
                 <td>{counter.Family}</td>
@@ -130,7 +87,24 @@ class Reports extends Component {
 }
 const mapStateToProps = (state) => ({
   user: state.User
-})
-export default connect(mapStateToProps)(Reports);
+});
+
+const mapDispatchToProps = (dispatch) => (
+  {
+    onLoad: promise => {
+      promise
+        .then(users => {
+         dispatch(
+            {
+              type: "ALL_PERSON_LOADED",
+              users
+            }
+          )
+        }
+        )
+    },
+  }
+);
+export default connect(mapStateToProps, mapDispatchToProps)(Reports);
 
 

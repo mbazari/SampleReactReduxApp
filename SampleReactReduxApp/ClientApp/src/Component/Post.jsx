@@ -7,23 +7,28 @@ import {paginate} from '../Utility/Pagination';
 import {Route, Switch,Link } from "react-router-dom";
 import Detailpost from "./DetailPost";
 import { connect } from 'react-redux';
+import * as agent from '../Utility/httpagent'
 
 class Post extends Component {
   constructor(props)
   {
     super(props)
     this.state={
-      post:[],
       currentPage:1,
       pageSize:5
     }
     this.handlePageChange=this.handlePageChange.bind(this)
   }
+  componentWillMount() {
+   
+  }
+
   //برای http نیز از این استفاده میکنیم
   componentDidMount()
   {
-    this.setState({ post: [...this.props.News] })
-    console.log(this.state.post)
+    this.props.onLoad(agent.News.get());     
+    // this.setState({ post: [...this.props.News] })
+    // console.log(this.state.post)
     // const posts=getPosts()
     // this.setState({post:posts})
   }
@@ -32,11 +37,11 @@ class Post extends Component {
 };
 
 getPageData = () => {
-    const { pageSize, currentPage, post } = this.state;
-    const posts = paginate(post, currentPage, pageSize,this.props.id);
+    const { pageSize, currentPage} = this.state;
+    const posts = paginate(this.props.News, currentPage, pageSize,this.props.id);
 
     return {
-        totalCount: post.length,
+        totalCount: this.props.News.length,
         data: posts
     };
 };
@@ -76,4 +81,7 @@ getPageData = () => {
 const mapStateToProps = (state) => ({
   News: state.News
 })
-export default connect(mapStateToProps)(Post);
+const mapSDispatchToProps = (dispatch) => ({
+  onLoad: promise => promise.then(news=>  dispatch({ type: "ALL_NEWS", news })),
+})
+export default connect(mapStateToProps,mapSDispatchToProps)(Post);
