@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
-import { BrowserRouter, Route, Switch,Redirect } from "react-router-dom";
+import {  Route, Switch,Redirect,HashRouter } from "react-router-dom";
 import './css/index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -16,15 +16,14 @@ import NotFound from './Component/NotFound';
 const Store=configureStore(defaultState)
 render(
     <Provider store={Store}>
-    <BrowserRouter>
+    <HashRouter>
         <Switch>
             <Route path="/login" component={Login} />
-            
             <Route path="/NotFound" component={NotFound}  />
             <Route path="" exact component={App} />
             <Redirect to="/NotFound"></Redirect>
         </Switch>
-    </BrowserRouter>
+    </HashRouter>
     </Provider>
     ,
     document.getElementById('root')
